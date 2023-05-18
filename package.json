@@ -1,0 +1,14 @@
+{
+  "name": "shell-scripts-with",
+  "version": "1.0.0",
+  "description": "Shell scripts with JS using google/zx",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "zx": "^7.2.2"
+  }
+}
