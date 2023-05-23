@@ -10,22 +10,29 @@ function exitWithError(errorMessage) {
 }
 
 async function main() {
-  let folderName = await question("What is your Folder Name? ");
-  console.log(folderName);
+  let folderName = await question(chalk.blue("What is your Folder Name? "));
+  let targetFolderName = path.resolve("legacy-packages", folderName);
 
-  const packageJsonContent = `
-   {
-     "name" : "@common/${folderName}",
-     "description": "Common Description"
-   }
-  `;
+  if (!(await fs.pathExists(targetFolderName))) {
+    exitWithError(`Error: Target folder name '${folderName}' does not exist`);
+  }
 
-  await `mkdir -p packages/${folderName}/src`;
-  fs.outputFileSync(
-    `packages/${folderName}/src/package.json`,
-    packageJsonContent
+  const packageJson = await fs.readJson("./legacy-packages/package.json");
+
+  packageJson.name = `@common/${folderName}`;
+  console.log(
+    chalk.yellow(
+      "Package content as follows:\n",
+      JSON.stringify(packageJson, null, 3)
+    )
   );
-  await $`cp -r legacy-packages/${folderName}/src/* packages/${folderName}/src/.`;
+
+  await $`mkdir -p packages/${folderName}/src`;
+  fs.outputFileSync(
+    `packages/${folderName}/package.json`,
+    JSON.stringify(packageJson, null, 3)
+  );
+  await $`cp -r legacy-packages/${folderName}/src/* packages/${folderName}/src/`;
 }
 
 main();
