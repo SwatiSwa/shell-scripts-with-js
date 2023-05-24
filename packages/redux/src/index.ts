@@ -1,7 +1,7 @@
 import { get } from "lodash";
 
 const employee = {
-  name: "@legacy-packages",
+  name: "@common-packages",
 };
 
 console.log("Redux", get(employee, "name"));

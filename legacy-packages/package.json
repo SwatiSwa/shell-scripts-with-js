@@ -6,6 +6,7 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
+    "body-parser": "^1.20.2",
     "express": "latest",
     "lodash": "^4.17.21"
   },
